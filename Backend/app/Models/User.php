@@ -11,7 +11,25 @@ class User extends Authenticatable implements JWTSubject
 {
     use HasFactory, Notifiable;
 
-    
+    function recipes() {
+        return $this->hasMany(Recipe::class, 'user_id');
+    }
+
+    function shoppingLists() {
+        return $this->hasMany(ShoppingList::class, 'user_id');
+    }
+
+    function mealPlans() {
+        return $this->hasMany(MealPlan::class, 'user_id');
+    }
+
+    function likes() {
+        return $this->hasMany(Likes::class, 'user_id');
+    }
+
+    function comments() {
+        return $this->hasMany(Comment::class, 'user_id');
+    }
 
     protected $fillable = [
         'name',
