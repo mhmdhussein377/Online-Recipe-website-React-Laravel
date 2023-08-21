@@ -27,5 +27,20 @@ class RecipeController extends Controller
                 "recipe_id" => $recipe->id
             ]);
         }
+
+        return response()->json([
+            "message" => "success",
+            "recipe" => $recipe,
+            "ingredients" => $ingredients
+        ]);
+    }
+
+    function deleteRecipe($RecipeId) {
+
+        Recipe::find($RecipeId)->delete();
+
+        return response()->json([
+            "message" => "Recipe has been deleted successfully"
+        ]);
     }
 }
