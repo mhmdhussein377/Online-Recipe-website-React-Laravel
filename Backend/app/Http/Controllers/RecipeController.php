@@ -43,4 +43,41 @@ class RecipeController extends Controller
             "message" => "Recipe has been deleted successfully"
         ]);
     }
+
+    function updateRecipe($RecipeId, Request $request) {
+
+        $recipe = Recipe::find($RecipeId);
+
+        $recipe->name = $request->name;
+        $recipe->cuisine = $request->cuisine;
+        $recipe->save();
+
+        $ingredients = $request->ingredients;
+        $newIngredients = [];
+
+        foreach($ingredients as $ingredient) {
+
+            if(isset($ingredient['id'])) {
+                $existsIngredient = Ingredient::find($ingredient['id']);
+
+                if($existsIngredient) {
+                    $existsIngredient->name = $ingredient['name'];
+                    $existsIngredient->save();
+                    $newIngredients[] = $existsIngredient;
+                }
+            }else {
+                $newIngredient = Ingredient::create([
+                    "recipe_id" => $recipe->id,
+                    "name" => $ingredient['name']
+                ]);
+                $newIngredients[] = $newIngredient;
+            }
+        }
+
+        return response()->json([
+            "status" => "success",
+            "recipe" => $recipe,
+            "ingredients" => $newIngredients
+        ]);
+    }
 }
