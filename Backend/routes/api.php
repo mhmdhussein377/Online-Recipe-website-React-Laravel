@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\RecipeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -12,5 +14,5 @@ Route::controller(AuthController::class)->group(function () {
 
 Route::group(['middleware' => 'jwt.auth'], function () {
     
-    
+    Route::post("/create-recipe", [RecipeController::class, 'createRecipe']);
 });
