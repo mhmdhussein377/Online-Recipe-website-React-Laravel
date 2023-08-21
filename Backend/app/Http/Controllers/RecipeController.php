@@ -146,5 +146,21 @@ class RecipeController extends Controller
         ]);
     }
 
-    
+    function deleteComment($RecipeId) {
+
+        $recipe = Recipe::find($RecipeId);
+
+        if($recipe) {
+            $recipe->delete();
+            return response()->json([
+                'status' => "success",
+                'message' => "comment has been deleted successfully",
+            ]);
+        }
+
+        return response()->json([
+            'status' => 'error',
+            'message' => "Recipe does not exist"
+        ]);
+    }
 }
