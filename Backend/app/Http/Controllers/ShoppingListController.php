@@ -22,4 +22,22 @@ class ShoppingListController extends Controller
             "shopping_list" => $shoppingList
         ]);
     }
+
+    function deleteShoppingList($shoppingListId) {
+
+        $shoppingList = ShoppingList::find($shoppingListId);
+
+        if($shoppingList) {
+            $shoppingList->delete();
+            return response()->json([
+                "status" => "success",
+                "message" => "shopping list has been deleted successfully"
+            ]);
+        }
+
+        return response()->json([
+            "status" => "error",
+            "message" => "shopping list does not exist"
+        ]);
+    }
 }

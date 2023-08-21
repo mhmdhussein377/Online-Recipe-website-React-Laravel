@@ -9,6 +9,11 @@ class ShoppingList extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'user_id',
+        'name',
+    ];
+
     function user() {
         return $this->belongsTo(User::class, "user_id");
     }
