@@ -40,4 +40,24 @@ class ShoppingListController extends Controller
             "message" => "shopping list does not exist"
         ]);
     }
+
+    function updateShoppingList(Request $request, $shoppingListId) {
+
+        $shoppingList = ShoppingList::find($shoppingListId);
+
+        if($shoppingList) {
+            $shoppingList->name = $request->name;
+            $shoppingList->save();
+            return response()->json([
+                "status" => "success",
+                "message" => "shopping list has been updated successfully",
+                "shopping_list" => $shoppingList
+            ]);
+        }
+
+        return response()->json([
+            "status" => "error",
+            "message" => "shopping list does not exist"
+        ]);
+    }
 }
