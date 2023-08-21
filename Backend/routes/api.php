@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RecipeController;
+use App\Http\Controllers\ShoppingListController;
+use App\Models\ShoppingList;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -24,4 +26,6 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     Route::post("/create-comment/{RecipeId}", [RecipeController::class, 'createComment']);
     Route::delete("/delete-comment/{CommentId}", [RecipeController::class, 'deleteComment']);
     Route::get('/comments/{RecipeId}', [RecipeController::class, 'getComments']);
+
+    Route::post("/create-shopping-list", [ShoppingListController::class, 'createShoppingList']);
 });

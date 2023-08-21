@@ -114,15 +114,17 @@ class RecipeController extends Controller
         $user = Auth::user();
 
         if($RecipeId) {
-            // comments with the name of the user who created the comment
-            $recipe = Recipe::find($RecipeId)->with(['ingredients', 'user', 'comments'])->first();
+            $recipe = Recipe::with(['ingredients', 'user', 'comments'])->find($RecipeId);
             return response()->json([
                 "status" => "success",
                 "recipe" => $recipe
             ]);
         }else {
-            // is liked by me or not
-            $recipes = Recipe::where("user_id", $user->id)->with('likes')->get();
+            $recipes = Recipe::withCount('likesCount')->where("user_id", $user->id)->get();
+            foreach ($recipes as $recipe) {
+                $isLiked = $recipe->likes->where("user_id", $user->id)->count() > 0 ? true : false;
+                $recipe->isLiked = $isLiked;
+            }
             return response()->json([
                 "status" => "success",
                 "recipes" => $recipes
@@ -137,7 +139,7 @@ class RecipeController extends Controller
         $comment = Comment::create([
             "comment" => $request->comment,
             "user_id" => $user->id,
-            "recipe_id" => $RecipeId
+            "recipe_id" => (int)$RecipeId
         ]);
 
         return response()->json([
@@ -170,7 +172,9 @@ class RecipeController extends Controller
         $recipe = Recipe::find($RecipeId);
 
         if($recipe) {
-            $comments = $recipe->comments()->with('user')->get();
+            $comments = $recipe->comments()->with('user', function ($query) {
+                return $query->select('name');
+            })->get();
             return response()->json([
                 "status" => "success",
                 "comments" => $comments

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Recipe extends Model
 {
@@ -23,12 +24,17 @@ class Recipe extends Model
         return $this->hasMany(Like::class, "recipe_id");
     }
 
-    function likesNumber() {
-        return $this->hasMany(Like::class, "recipe_id")->count();
+    function isLiked() {
+        $user = Auth::user();
+        return $this->hasMany(Like::class)->where("user_id", $user->id)->count() > 0;
+    }
+
+    function likesCount() {
+        return $this->hasMany(Like::class, "recipe_id");
     }
 
     function comments() {
-        return $this->hasMany(Comment::class, "recipe_id");
+        return $this->hasMany(Comment::class, "recipe_id")->with('user');
     }
 
     function shoppingLists() {
