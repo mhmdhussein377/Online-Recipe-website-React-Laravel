@@ -93,4 +93,17 @@ class ShoppingListController extends Controller
             "message" => "shopping list recipe does not exist"
         ]);
     }
+
+    function getShoppingListRecipes($shoppingListId) {
+
+        $shoppingList = ShoppingList::find($shoppingListId);
+
+        $shoppingListRecipes = $shoppingList->recipes;
+        // ->load("user")
+        
+        return response()->json([
+            "status" => "success",
+            "shoppingListRecipes" => $shoppingListRecipes
+        ]);
+    }
 }

@@ -33,4 +33,5 @@ Route::group(['middleware' => 'jwt.auth'], function () {
 
     Route::post("/create-shopping-list-recipe", [ShoppingListController::class, 'createShoppingListRecipe']);
     Route::delete("/delete-shopping-list-recipe/{shoppingListRecipeId}", [ShoppingListController::class, 'deleteShoppingListRecipe']);
+    Route::get("/shopping-list-recipes/{shoppingListId}", [ShoppingListController::class, "getShoppingListRecipes"]);
 });

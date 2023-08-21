@@ -8,6 +8,7 @@ use App\Models\Like;
 use App\Models\Recipe;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class RecipeController extends Controller
 {
@@ -15,11 +16,20 @@ class RecipeController extends Controller
 
         $user = Auth::user();
 
+        $base64Image = $request->image;
+        $decodedImage = base64_decode($base64Image);
+
+        $filename = 'post_' . time() . '.jpg';
+        $path = Storage::disk('public')->put('images/' . $filename, $decodedImage);
+
         $recipe = Recipe::create([
             "name" => $request->name,
             "cuisine" => $request->cuisine,
-            "user_id" => $user->id
+            "user_id" => $user->id,
+            "images" => 'images/' . $filename
         ]);
+
+        $imageUrl = Storage::url('images/' . $filename);
 
         $ingredients = $request->ingredients;
 
@@ -33,6 +43,7 @@ class RecipeController extends Controller
         return response()->json([
             "message" => "success",
             "recipe" => $recipe,
+            "image_url" => $imageUrl,
             "ingredients" => $ingredients
         ]);
     }
