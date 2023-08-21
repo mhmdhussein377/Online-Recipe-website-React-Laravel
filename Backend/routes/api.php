@@ -20,4 +20,5 @@ Route::group(['middleware' => 'jwt.auth'], function () {
 
     Route::get("/like-recipe/{RecipeId}", [RecipeController::class, 'likeRecipe']);
     Route::get("/recipes/{RecipeId?}", [RecipeController::class, 'getRecipes']);
+    Route::post("/create-comment/{RecipeId}", [RecipeController::class, 'createComment']);
 });

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use App\Models\Ingredient;
 use App\Models\Like;
 use App\Models\Recipe;
@@ -113,17 +114,37 @@ class RecipeController extends Controller
         $user = Auth::user();
 
         if($RecipeId) {
-            $recipe = Recipe::find($RecipeId)->with('ingredients')->get();
+            // comments with the name of the user who created the comment
+            $recipe = Recipe::find($RecipeId)->with(['ingredients', 'user', 'comments'])->first();
             return response()->json([
                 "status" => "success",
                 "recipe" => $recipe
             ]);
         }else {
-            $recipes = Recipe::where("user_id", $user->id)->with('ingredients')->get();
+            // is liked by me or not
+            $recipes = Recipe::where("user_id", $user->id)->with('likes')->get();
             return response()->json([
                 "status" => "success",
                 "recipes" => $recipes
             ]);
         }
     }
+
+    function createComment(Request $request, $RecipeId) {
+
+        $user = Auth::user();
+
+        $comment = Comment::create([
+            "comment" => $request->comment,
+            "user_id" => $user->id,
+            "recipe_id" => $RecipeId
+        ]);
+
+        return response()->json([
+            'status' => 'success',
+            "comment" => $comment
+        ]);
+    }
+
+    
 }
