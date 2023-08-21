@@ -1,0 +1,13 @@
+.layout {
+    display: flex;
+    gap: 40px;
+    min-height: 100vh;
+    height: 100%;
+}
+
+.outlet {
+    margin-left: 120px;
+    margin-right: 40px;
+    margin-top: 40px;
+    flex: 1;
+}

@@ -131,7 +131,7 @@ class RecipeController extends Controller
                 "recipe" => $recipe
             ]);
         }else {
-            $recipes = Recipe::withCount('likesCount')->where("user_id", $user->id)->get();
+            $recipes = Recipe::withCount('likesCount')->get();
             foreach ($recipes as $recipe) {
                 $isLiked = $recipe->likes->where("user_id", $user->id)->count() > 0 ? true : false;
                 $recipe->isLiked = $isLiked;
@@ -141,6 +141,21 @@ class RecipeController extends Controller
                 "recipes" => $recipes
             ]);
         }
+    }
+
+    function myRecipes() {
+
+        $user = Auth::user();
+
+        $recipes = Recipe::withCount('likesCount')->where('user_id', $user->id)->get();
+            foreach ($recipes as $recipe) {
+                $isLiked = $recipe->likes->where("user_id", $user->id)->count() > 0 ? true : false;
+                $recipe->isLiked = $isLiked;
+            }
+            return response()->json([
+                "status" => "success",
+                "recipes" => $recipes
+            ]);
     }
 
     function createComment(Request $request, $RecipeId) {

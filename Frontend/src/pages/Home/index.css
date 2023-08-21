@@ -1,0 +1,45 @@
+.home {
+    background-color: aqua;
+}
+
+.home .top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.home .top h1 {
+    font-weight: 600;
+}
+
+.home .top .search {
+    display: flex;
+    gap: 10px;
+    width: 300px;
+    padding: 8px;
+    border-radius: 7px;
+    background-color: red;
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    -ms-border-radius: 7px;
+    -o-border-radius: 7px;
+}   
+
+.home .top .search input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    font-size: 1rem;
+}
+
+.home h3 {
+    font-weight: 500;
+    margin: 40px 0 20px;
+}
+
+.home .recipes {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.875rem;
+}
