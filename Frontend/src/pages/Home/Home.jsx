@@ -12,7 +12,7 @@ const Home = () => {
                     <input type="text" placeholder="Search"/>
                 </div>
             </div>
-            <h3>Recipes</h3>
+            <h2>Recipes</h2>
             <div className="recipes">
                 <Recipe/>
                 <Recipe/>

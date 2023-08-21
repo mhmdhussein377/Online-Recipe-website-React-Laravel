@@ -1,0 +1,14 @@
+.liked-recipes h1 {
+    font-weight: 500;
+}
+
+.liked-recipes h2 {
+    font-weight: 400;
+    margin: 40px 0 20px;
+}
+
+.liked-recipes .recipes {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.875rem;
+}

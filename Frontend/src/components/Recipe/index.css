@@ -41,6 +41,7 @@
 .recipe .cuisine {
     margin-top: 5px;
     margin-bottom: 15px;
+    font-size: .9375rem;
 }
 
 .recipe .view-details {

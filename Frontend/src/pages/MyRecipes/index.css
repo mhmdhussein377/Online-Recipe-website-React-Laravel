@@ -1,0 +1,14 @@
+.my-recipes h1 {
+    font-weight: 500;
+}
+
+.my-recipes h2 {
+    font-weight: 400;
+    margin: 40px 0 20px;
+}
+
+.my-recipes .recipes {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.875rem;
+}
