@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ingredient;
+use App\Models\Like;
 use App\Models\Recipe;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -79,5 +80,50 @@ class RecipeController extends Controller
             "recipe" => $recipe,
             "ingredients" => $newIngredients
         ]);
+    }
+
+    function likeRecipe($RecipeId) {
+
+        $user = Auth::user();
+        $isLiked = Like::where([
+            "recipe_id" => $RecipeId,
+            "user_id" => $user->id,
+        ])->first();
+
+        if($isLiked) {
+            $isLiked->delete();
+            return response()->json([
+                "status" => "success",
+                "message" => "Recipe has been unliked successfully"
+            ]);
+        }else {
+            Like::create([
+                "user_id" => $user->id,
+                "recipe_id" => $RecipeId
+            ]);
+            return response()->json([
+                "status" => "success",
+                "message" => "Recipe has been liked successfully"
+            ]);
+        }
+    }
+
+    function getRecipes($RecipeId = null) {
+
+        $user = Auth::user();
+
+        if($RecipeId) {
+            $recipe = Recipe::find($RecipeId)->with('ingredients')->get();
+            return response()->json([
+                "status" => "success",
+                "recipe" => $recipe
+            ]);
+        }else {
+            $recipes = Recipe::where("user_id", $user->id)->with('ingredients')->get();
+            return response()->json([
+                "status" => "success",
+                "recipes" => $recipes
+            ]);
+        }
     }
 }
