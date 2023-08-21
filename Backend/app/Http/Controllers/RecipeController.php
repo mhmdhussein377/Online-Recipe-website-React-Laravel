@@ -146,12 +146,13 @@ class RecipeController extends Controller
         ]);
     }
 
-    function deleteComment($RecipeId) {
+    // ask charbel if it's better to use Auth::user to delete a comment
+    function deleteComment($CommmentId) {
 
-        $recipe = Recipe::find($RecipeId);
+        $comment = Comment::find($CommmentId);
 
-        if($recipe) {
-            $recipe->delete();
+        if($comment) {
+            $comment->delete();
             return response()->json([
                 'status' => "success",
                 'message' => "comment has been deleted successfully",
@@ -160,7 +161,25 @@ class RecipeController extends Controller
 
         return response()->json([
             'status' => 'error',
-            'message' => "Recipe does not exist"
+            'message' => "comment does not exist"
+        ]);
+    }
+
+    function getComments($RecipeId) {
+
+        $recipe = Recipe::find($RecipeId);
+
+        if($recipe) {
+            $comments = $recipe->comments()->with('user')->get();
+            return response()->json([
+                "status" => "success",
+                "comments" => $comments
+            ]);
+        }
+
+        return response()->json([
+            "status" => "error",
+            "message" => "recipe does not exist"
         ]);
     }
 }

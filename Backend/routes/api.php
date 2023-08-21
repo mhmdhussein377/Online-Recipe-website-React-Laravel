@@ -22,5 +22,6 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     Route::get("/recipes/{RecipeId?}", [RecipeController::class, 'getRecipes']);
 
     Route::post("/create-comment/{RecipeId}", [RecipeController::class, 'createComment']);
-    Route::post("/delete-comment/{RecipeId}", [RecipeController::class, 'deleteComment']);
+    Route::delete("/delete-comment/{CommentId}", [RecipeController::class, 'deleteComment']);
+    Route::get('/comments/{RecipeId}', [RecipeController::class, 'getComments']);
 });
