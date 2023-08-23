@@ -5,6 +5,7 @@ import Home from "./pages/Home/Home"
 import LikedRecipes from "./pages/LikedRecipes/LikedRecipes"
 import MyRecipes from "./pages/MyRecipes/MyRecipes"
 import CreateRecipe from "./pages/CreateRecipe/CreateRecipe"
+import RecipeDetails from "./pages/RecipeDetails/RecipeDetails"
 
 function App() {
     return (
@@ -14,6 +15,7 @@ function App() {
                 <Route path="liked-recipes" element={<LikedRecipes/>}/>
                 <Route path="my-recipes" element={<MyRecipes/>}/>
                 <Route path="create-recipe" element={<CreateRecipe/>}/>
+                <Route path="recipe/:id" element={<RecipeDetails/>}/>
             </Route>
         </Routes>
     )
