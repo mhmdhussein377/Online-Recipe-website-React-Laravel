@@ -2,6 +2,9 @@ import "./index.css"
 import Recipe from "./../../components/Recipe/Recipe"
 
 const LikedRecipes = () => {
+
+    
+
     return (
         <div className="liked-recipes">
             <h1>Welcome to Recipes</h1>

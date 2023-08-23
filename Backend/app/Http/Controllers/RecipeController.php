@@ -94,15 +94,6 @@ class RecipeController extends Controller
         ]);
     }
 
-    function getAllRecipes() {
-        $recipes = Recipe::all();
-
-        return response()->json([
-            "status" => "success",
-            "recipes" => $recipes
-        ]);
-    }
-
     function likeRecipe($RecipeId) {
 
         $user = Auth::user();
@@ -162,6 +153,17 @@ class RecipeController extends Controller
                 $recipe->isLiked = $isLiked;
             }
             return response()->json([
+                "status" => "success",
+                "recipes" => $recipes
+            ]);
+    }
+
+    function likedRecipes() {
+
+        $user = Auth::user();
+        $recipes = Like::where("user_id", $user->id)->with('recipe')->get();
+
+        return response()->json([
                 "status" => "success",
                 "recipes" => $recipes
             ]);
