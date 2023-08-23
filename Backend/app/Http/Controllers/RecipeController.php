@@ -94,6 +94,15 @@ class RecipeController extends Controller
         ]);
     }
 
+    function getAllRecipes() {
+        $recipes = Recipe::all();
+
+        return response()->json([
+            "status" => "success",
+            "recipes" => $recipes
+        ]);
+    }
+
     function likeRecipe($RecipeId) {
 
         $user = Auth::user();

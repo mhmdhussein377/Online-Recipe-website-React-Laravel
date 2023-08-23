@@ -24,3 +24,7 @@
 .navbar .logout {
     margin-top: auto;
 }
+
+.navbar .logout .icon > * {
+    cursor: pointer;
+}

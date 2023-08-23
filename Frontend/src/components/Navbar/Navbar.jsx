@@ -4,8 +4,17 @@ import {TbLetterM} from "react-icons/tb"
 import {PiWallet} from "react-icons/pi"
 import {BsCalendarEvent, BsCardList} from "react-icons/bs"
 import {IoIosLogOut} from "react-icons/io"
+import {useNavigate} from "react-router-dom"
 
 const Navbar = () => {
+
+    const navigate = useNavigate()
+
+    const handleLogout = () => {
+        localStorage.removeItem("token")
+        navigate("/")
+    }
+
     return (
         <div className="navbar">
             <div className="logo">
@@ -33,7 +42,7 @@ const Navbar = () => {
             </div>
             <div className="logout">
                 <div className="icon">
-                    <IoIosLogOut size={25}/>
+                    <IoIosLogOut onClick={handleLogout} size={25}/>
                 </div>
             </div>
         </div>

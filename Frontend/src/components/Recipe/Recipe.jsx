@@ -1,7 +1,25 @@
-import {AiFillHeart} from "react-icons/ai";
+import {AiFillHeart, AiOutlineHeart} from "react-icons/ai";
 import "./index.css"
+import {useState} from "react";
+import axios from "axios"
 
-const Recipe = () => {
+const Recipe = ({id, name, cuisine, isLiked, likes_count_count}) => {
+
+    let [liked,
+        setLiked] = useState(isLiked)
+    let [likesNumber, setLikesNumber] = useState(likes_count_count)
+
+    const handleLike = async() => {
+        setLiked(!liked)
+        liked ? setLikesNumber(likesNumber - 1) : setLikesNumber(likesNumber + 1)
+        
+        await axios.get(`http://127.0.0.1:8000/api/like-recipe/${id}`, {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem("token")}`
+            }
+        });
+    }
+
     return (
         <div className="recipe">
             <div className="recipe-img">
@@ -11,13 +29,15 @@ const Recipe = () => {
             </div>
             <div className="bottom-recipe">
                 <div className="name-likes">
-                    <div className="name">Ice Cream</div>
+                    <div className="name">{name}</div>
                     <div className="likes">
-                        <AiFillHeart size={25}/>
-                        25
+                            {liked
+                                ? (<AiFillHeart className="heart-icon" onClick={handleLike} size={25}/>)
+                                : (<AiOutlineHeart className="heart-icon" onClick={handleLike} size={25}/>)}
+                        {likesNumber}
                     </div>
                 </div>
-                <div className="cuisine">Lebanese</div>
+                <div className="cuisine">{cuisine}</div>
                 <button className="view-details">View Details</button>
             </div>
         </div>
