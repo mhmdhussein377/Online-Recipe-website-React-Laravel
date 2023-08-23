@@ -161,7 +161,16 @@ class RecipeController extends Controller
     function likedRecipes() {
 
         $user = Auth::user();
-        $recipes = Like::where("user_id", $user->id)->with('recipe')->get();
+        // $recipes = Like::where("user_id", $user->id)->with('recipe')->withCount('recipe.likes as likesCount')->get();
+        $recipes = Recipe::whereHas('likes', function ($query) use ($user) {
+            $query->where('user_id', $user->id);
+        })
+        ->withCount('likesCount')
+        ->get();
+        foreach ($recipes as $recipe) {
+                $recipe->isLiked = true;
+                // $recipe::withCount("likesCount");
+            }
 
         return response()->json([
                 "status" => "success",
