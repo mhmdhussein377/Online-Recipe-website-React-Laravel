@@ -3,7 +3,7 @@ import "./index.css";
 import {useState} from "react";
 import axios from "axios";
 
-const LikedRecipe = ({id, name, cuisine, isLiked, likes_count_count, setLikedRecipes}) => {
+const LikedRecipe = ({id, name, cuisine, likes_count_count, setLikedRecipes}) => {
 
     const handleLike = async() => {
         setLikedRecipes(prev => prev.filter(item => item.id !== id))
