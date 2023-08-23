@@ -62,11 +62,26 @@ class ShoppingListController extends Controller
         ]);
     }
 
-    function createShoppingListRecipe(Request $request) {
+    function createShoppingListRecipe($recipeId) {
+
+        $user = Auth::user();
+
+        $shoppingListRecipe = ShoppingListRecipe::where([
+            "user_id" => $user->id,
+            "recipe_id" => $recipeId
+        ])->first();
+
+        if($shoppingListRecipe) {
+            $shoppingListRecipe->delete();
+            return response()->json([
+            "status" => "success",
+            "message" => "shopping list has been deleted successfully",
+        ]);
+        }
 
         $shoppingListRecipe = ShoppingListRecipe::create([
-            "shopping_list_id" => $request->shopping_list_id,
-            "recipe_id" => $request->recipe_id
+            "user_id" => $user->id,
+            "recipe_id" => $recipeId
         ]);
 
         return response()->json([
@@ -76,30 +91,41 @@ class ShoppingListController extends Controller
         ]);
     }
 
-    function deleteShoppingListRecipe($shoppingListRecipeId) {
+    // function deleteShoppingListRecipe($recipeId) {
 
-        $shoppingListRecipe = ShoppingListRecipe::find($shoppingListRecipeId);
+    //     $user = Auth::user();
 
-        if($shoppingListRecipe) {
-            $shoppingListRecipe->delete();
-            return response()->json([
-                "status" => "success",
-                "message" => "shopping list recipe has been deleted successfully"
-            ]);
+    //     $shoppingListRecipe = ShoppingListRecipe::where([
+    //         "recipe_id" => $recipeId,
+    //         "user_id" => $user->id
+    //     ])->first();
+
+    //     if($shoppingListRecipe) {
+    //         $shoppingListRecipe->delete();
+    //         return response()->json([
+    //             "status" => "success",
+    //             "message" => "shopping list recipe has been deleted successfully"
+    //         ]);
+    //     }
+
+    //     return response()->json([
+    //         "status" => "error",
+    //         "message" => "shopping list recipe does not exist"
+    //     ]);
+    // }
+
+    function getShoppingListRecipes() {
+
+        $user = Auth::user();
+
+        $shoppingListRecipes = ShoppingListRecipe::where("user_id", $user->id)->with('recipe')->get();
+
+        foreach($shoppingListRecipes as $shoppingListRecipe) {
+            $recipe = $shoppingListRecipe->recipe;
+
+            $isLiked = $recipe->likes->where("user_id", $user->id)->count() > 0 ? true : false;
+            $shoppingListRecipe->recipe->isLiked = $isLiked;
         }
-
-        return response()->json([
-            "status" => "error",
-            "message" => "shopping list recipe does not exist"
-        ]);
-    }
-
-    function getShoppingListRecipes($shoppingListId) {
-
-        $shoppingList = ShoppingList::find($shoppingListId);
-
-        $shoppingListRecipes = $shoppingList->recipes;
-        // ->load("user")
         
         return response()->json([
             "status" => "success",

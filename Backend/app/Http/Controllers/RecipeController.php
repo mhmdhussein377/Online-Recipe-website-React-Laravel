@@ -6,6 +6,8 @@ use App\Models\Comment;
 use App\Models\Ingredient;
 use App\Models\Like;
 use App\Models\Recipe;
+use App\Models\ShoppingList;
+use App\Models\ShoppingListRecipe;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -126,6 +128,8 @@ class RecipeController extends Controller
 
         if($RecipeId) {
             $recipe = Recipe::with(['ingredients', 'user', 'comments'])->find($RecipeId);
+            $isInShoppongList = ShoppingListRecipe::where(['user_id' => $user->id, "recipe_id" => $RecipeId]);
+            $recipe->isInShoppingList = $isInShoppongList->count() > 0 ? true : false;
             return response()->json([
                 "status" => "success",
                 "recipe" => $recipe
@@ -188,6 +192,8 @@ class RecipeController extends Controller
             "recipe_id" => (int)$RecipeId
         ]);
 
+        $comment->load('user');;
+
         return response()->json([
             'status' => 'success',
             "comment" => $comment
@@ -230,6 +236,18 @@ class RecipeController extends Controller
         return response()->json([
             "status" => "error",
             "message" => "recipe does not exist"
+        ]);
+    }
+
+    function searchRecipes($searchTerm) {
+
+        $recipes = Recipe::where("name", "like", "%" . $searchTerm . "%")->orWhere("cuisine", "like", "%" . $searchTerm . "%")->orWhereHas("ingredients", function ($query) use ($searchTerm) {
+            $query->where('name', "like", "%" . $searchTerm . "%");
+        })->with('ingredients')->get();
+
+        return response()->json([
+            "status" => "success",
+            "recipes" => $recipes
         ]);
     }
 }

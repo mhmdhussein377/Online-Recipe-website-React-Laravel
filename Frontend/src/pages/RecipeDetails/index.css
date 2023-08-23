@@ -104,52 +104,6 @@
     -o-border-radius: 5px;
 }
 
-.recipe-details .bottom .comments .comment-form {
-    background-color: green;
-    width: 60%;
-    padding: .625rem;
-    border-radius: 5px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    -ms-border-radius: 5px;
-    -o-border-radius: 5px;
-    position: relative;
-}
-
-.recipe-details .bottom .comments .comment-form textarea {
-    width: 100%;
-    height: 6.25rem;
-    padding: 10px;
-    border-radius: 5px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    -ms-border-radius: 5px;
-    -o-border-radius: 5px;
-    outline: none;
-    border: none;
-    font-size: 1rem;
-}
-
-.recipe-details .bottom .comments .comment-form .close {
-    position: absolute;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    top: -15px;
-    right: -15px;
-    background-color: black;
-    color: white;
-    border-radius: 50%;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    -ms-border-radius: 50%;
-    -o-border-radius: 50%;
-    z-index: 9;
-    cursor: pointer;
-}
-
 .recipe-details .bottom .comments .comments-content {
     margin-top: 30px;
     display: flex;

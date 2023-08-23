@@ -29,11 +29,8 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     Route::delete("/delete-comment/{CommentId}", [RecipeController::class, 'deleteComment']);
     Route::get('/comments/{RecipeId}', [RecipeController::class, 'getComments']);
 
-    Route::post("/create-shopping-list", [ShoppingListController::class, 'createShoppingList']);
-    Route::delete("/delete-shopping-list/{shoppingListId}", [ShoppingListController::class, 'deleteShoppingList']);
-    Route::post("/update-shopping-list/{shoppingListId}", [ShoppingListController::class, 'updateShoppingList']);
+    Route::get("/create-shopping-list-recipe/{recipeId}", [ShoppingListController::class, 'createShoppingListRecipe']);
+    Route::get("/shopping-list-recipes", [ShoppingListController::class, "getShoppingListRecipes"]);
 
-    Route::post("/create-shopping-list-recipe", [ShoppingListController::class, 'createShoppingListRecipe']);
-    Route::delete("/delete-shopping-list-recipe/{shoppingListRecipeId}", [ShoppingListController::class, 'deleteShoppingListRecipe']);
-    Route::get("/shopping-list-recipes/{shoppingListId}", [ShoppingListController::class, "getShoppingListRecipes"]);
+    Route::get("/search/{searchTerm}", [RecipeController::class, 'searchRecipes']);
 });

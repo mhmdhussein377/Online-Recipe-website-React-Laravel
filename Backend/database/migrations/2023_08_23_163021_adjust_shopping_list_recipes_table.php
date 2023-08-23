@@ -8,18 +8,20 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('shopping_lists', function (Blueprint $table) {
+        Schema::dropIfExists("shopping_list_recipes");
+        Schema::create('shopping_list_recipes', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->string('name');
+            $table->unsignedBigInteger('recipe_id');
             $table->timestamps();
 
+            $table->foreign('recipe_id')->references('id')->on('recipes')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('shopping_lists');
+        
     }
 };

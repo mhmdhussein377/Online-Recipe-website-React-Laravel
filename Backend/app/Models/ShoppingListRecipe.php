@@ -10,7 +10,7 @@ class ShoppingListRecipe extends Model
     use HasFactory;
 
     protected $fillable = [
-        'shopping_list_id',
+        'user_id',
         'recipe_id',
     ];
 
@@ -18,7 +18,7 @@ class ShoppingListRecipe extends Model
         return $this->belongsTo(Recipe::class);
     }
 
-    function shoppingList() {
-        return $this->belongsTo(ShoppingList::class);
+    function user() {
+        return $this->belongsTo(User::class);
     }
 }

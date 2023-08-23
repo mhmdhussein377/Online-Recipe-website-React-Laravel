@@ -11,12 +11,12 @@ return new class extends Migration
         Schema::dropIfExists('shopping_list_items');
         Schema::create('shopping_list_recipes', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('shopping_list_id');
+            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('recipe_id');
             $table->timestamps();
 
             $table->foreign('recipe_id')->references('id')->on('recipes')->onDelete('cascade');
-            $table->foreign('shopping_list_id')->references('id')->on('shopping_lists')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

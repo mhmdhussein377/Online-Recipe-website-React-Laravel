@@ -1,9 +1,46 @@
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import "./index.css"
+import {useParams} from "react-router-dom";
+import axios from "axios";
+import Comment from "../../components/Comment/Comment";
+import CommentForm from "../../components/CommentForm/CommentForm";
 
 const RecipeDetails = () => {
 
-    let [isCommentOpened, setIsCommentOpened] = useState(false)
+    let [isCommentOpened,
+        setIsCommentOpened] = useState(false)
+    let [recipe,
+        setRecipe] = useState(null)
+    let [inShoppingList, setInShoppingList] = useState(false)
+
+    const {id} = useParams()
+
+    useEffect(() => {
+        const getRecipe = async() => {
+            let {data} = await axios.get(`http://127.0.0.1:8000/api/recipes/${id}`, {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            });
+            setRecipe(data.recipe)
+            setInShoppingList(data.recipe.isInShoppingList)
+            console.log(data)
+        }
+        getRecipe()
+    }, [])
+
+    const handleAddToShoppingList = async() => {
+        try {
+            setInShoppingList(!inShoppingList)
+            let { data } = await axios.get(`http://127.0.0.1:8000/api/create-shopping-list-recipe/${id}`, {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem("token")}`
+                }
+            });
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     return (
         <div className="recipe-details">
@@ -15,23 +52,23 @@ const RecipeDetails = () => {
                 </div>
                 <div className="recipe-content">
                     <div className="recipe-name-user">
-                        <h2>Tomato Soup - Lebanese</h2>
-                        <p>by Mohammad hussein</p>
+                        <h2>
+                            {recipe
+                                ?.name} - {recipe
+                                ?.cuisine}
+                        </h2>
+                        <p>by {recipe
+                                ?.user.name}</p>
                     </div>
                     <div className="ingredients">
                         <h3>Ingredients</h3>
                         <div className="ingredients-content">
                             <ul>
-                                <li>1 tbsp olive oil</li>
-                                <li>Add the stock to the veg pan with tinned tomatoes.</li>
-                                <li>1 tbsp olive oil</li>
-                                <li>Add the stock to the veg pan with tinned tomatoes.</li>
-                                <li>1 tbsp olive oil</li>
-                                <li>Add the stock to the veg pan with tinned tomatoes.</li>
-                                <li>1 tbsp olive oil</li>
-                                <li>Add the stock to the veg pan with tinned tomatoes.</li>
-                                <li>1 tbsp olive oil</li>
-                                <li>Add the stock to the veg pan with tinned tomatoes.</li>
+                                {recipe
+                                    ?.ingredients
+                                        ?.map((item, index) => (
+                                            <li key={index}>{item.name}</li>
+                                        ))}
                             </ul>
                         </div>
                     </div>
@@ -41,61 +78,22 @@ const RecipeDetails = () => {
                 <div className="comments">
                     <div className="head">
                         <h4>Comments</h4>
-                        <div onClick={e => setIsCommentOpened(true)} className="create-comment">
+                        <div onClick={(e) => setIsCommentOpened(true)} className="create-comment">
                             <button>Create comment</button>
                         </div>
                     </div>
-                    {isCommentOpened && <form className="comment-form">
-                        <textarea placeholder="Write something"/>
-                        <div onClick={e => setIsCommentOpened(false)} className="close">X</div>
-                    </form>}
+                    {isCommentOpened && <CommentForm recipeId={id} setRecipe={setRecipe} setIsCommentOpened={setIsCommentOpened} />}
                     <div className="comments-content">
-                        <div className="comment">
-                            <div className="comment-user">Mohammad Hussein</div>
-                            <div className="comment-content">
-                                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Asperiores, commodi.
-                            </div>
-                        </div>
-                        <div className="comment">
-                            <div className="comment-user">Mohammad Hussein</div>
-                            <div className="comment-content">
-                                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Asperiores, commodi.
-                            </div>
-                        </div>
-                        <div className="comment">
-                            <div className="comment-user">Mohammad Hussein</div>
-                            <div className="comment-content">
-                                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Asperiores, commodi.
-                            </div>
-                        </div>
-                        <div className="comment">
-                            <div className="comment-user">Mohammad Hussein</div>
-                            <div className="comment-content">
-                                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Asperiores, commodi.
-                            </div>
-                        </div>
-                        <div className="comment">
-                            <div className="comment-user">Mohammad Hussein</div>
-                            <div className="comment-content">
-                                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Asperiores, commodi.
-                            </div>
-                        </div>
-                        <div className="comment">
-                            <div className="comment-user">Mohammad Hussein</div>
-                            <div className="comment-content">
-                                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Asperiores, commodi.
-                            </div>
-                        </div>
-                        <div className="comment">
-                            <div className="comment-user">Mohammad Hussein</div>
-                            <div className="comment-content">
-                                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Asperiores, commodi.
-                            </div>
-                        </div>
+                        {recipe
+                            ?.comments.length > 0
+                                ? (recipe.comments.slice().reverse().map((comment, index) => (<Comment key={index} {...comment}/>)))
+                                : (
+                                    <h1>No comments</h1>
+                                )}
                     </div>
                 </div>
                 <div className="bottom-right">
-                    <button>Add to shopping list</button>
+                    <button onClick={handleAddToShoppingList}>{inShoppingList ? "Remove from shopping list" : "Add to shopping list"}</button>
                     <button>Add to calendar</button>
                     <button>Share on social media</button>
                 </div>

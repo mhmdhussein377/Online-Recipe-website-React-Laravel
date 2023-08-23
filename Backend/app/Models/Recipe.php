@@ -38,8 +38,8 @@ class Recipe extends Model
         return $this->hasMany(Comment::class, "recipe_id")->with('user');
     }
 
-    function shoppingLists() {
-        return $this->belongsToMany(ShoppingList::class, 'shopping_list_recipes', 'shopping_list_id', 'recipe_id');
+    function shoppingListRecipe() {
+        return $this->belongsToMany(ShoppingListRecipe::class, 'shopping_list_recipes', 'user_id', 'recipe_id');
     }
 
     function mealPlans() {
