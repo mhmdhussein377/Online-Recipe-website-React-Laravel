@@ -12,7 +12,8 @@ const RecipeDetails = () => {
         setIsCommentOpened] = useState(false)
     let [recipe,
         setRecipe] = useState(null)
-    let [inShoppingList, setInShoppingList] = useState(false)
+    let [inShoppingList,
+        setInShoppingList] = useState(false)
 
     const {id} = useParams()
 
@@ -33,7 +34,7 @@ const RecipeDetails = () => {
     const handleAddToShoppingList = async() => {
         try {
             setInShoppingList(!inShoppingList)
-            let { data } = await axios.get(`http://127.0.0.1:8000/api/create-shopping-list-recipe/${id}`, {
+            let {data} = await axios.get(`http://127.0.0.1:8000/api/create-shopping-list-recipe/${id}`, {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem("token")}`
                 }
@@ -43,19 +44,20 @@ const RecipeDetails = () => {
         }
     }
 
+    console.log(recipe)
+
     return (
         <div className="recipe-details">
             <div className="top">
                 <div className="recipe-img">
-                    <img
-                        src="https://img.freepik.com/premium-photo/ice-cream-gourmet-foood_118342-59081.jpg?size=626&ext=jpg&ga=GA1.1.356022348.1691570131&semt=sph"
-                        alt="recipe-img"/>
+                    <img src={`http://127.0.0.1:8000/storage/${recipe?.images}`} alt="recipe-img"/>
                 </div>
                 <div className="recipe-content">
                     <div className="recipe-name-user">
                         <h2>
                             {recipe
-                                ?.name} - {recipe
+                                ?.name}
+                            - {recipe
                                 ?.cuisine}
                         </h2>
                         <p>by {recipe
@@ -83,21 +85,28 @@ const RecipeDetails = () => {
                             <button>Create comment</button>
                         </div>
                     </div>
-                    {isCommentOpened && <CommentForm recipeId={id} setRecipe={setRecipe} setIsCommentOpened={setIsCommentOpened} />}
+                    {isCommentOpened && (<CommentForm
+                        recipeId={id}
+                        setRecipe={setRecipe}
+                        setIsCommentOpened={setIsCommentOpened}/>)}
                     <div className="comments-content">
                         {recipe
                             ?.comments.length > 0
-                                ? (recipe.comments.slice().reverse().map((comment, index) => (<Comment key={index} {...comment}/>)))
+                                ? (recipe.comments.slice().reverse().map((comment, index) => <Comment key={index} {...comment}/>))
                                 : (
                                     <h1>No comments</h1>
                                 )}
                     </div>
                 </div>
                 <div className="bottom-right">
-                    <button onClick={handleAddToShoppingList}>{inShoppingList ? "Remove from shopping list" : "Add to shopping list"}</button>
+                    <button onClick={handleAddToShoppingList}>
+                        {inShoppingList
+                            ? "Remove from shopping list"
+                            : "Add to shopping list"}
+                    </button>
                     <button>Add to calendar</button>
-                    <ShareButtons name={recipe?.name} />
-                    {/* <button>Share on social media</button> */}
+                    <ShareButtons name={recipe
+                        ?.name}/> {/* <button>Share on social media</button> */}
                 </div>
             </div>
         </div>

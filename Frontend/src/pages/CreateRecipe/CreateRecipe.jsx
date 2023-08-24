@@ -50,26 +50,21 @@ const CreateRecipe = () => {
         console.log(base64)
     }
 
-
     const handleCreateRecipe = async(e) => {
         e.preventDefault()
 
         try {
             const newBase64 = base64.split(",")[1];
-            let { data } = await axios.post(
-              "http://127.0.0.1:8000/api/create-recipe",
-              {
+            let {data} = await axios.post("http://127.0.0.1:8000/api/create-recipe", {
                 name,
                 cuisine,
                 image: newBase64,
-                ingredients,
-              },
-              {
+                ingredients
+            }, {
                 headers: {
-                  Authorization: `Bearer ${localStorage.getItem("token")}`,
-                },
-              }
-            );
+                    Authorization: `Bearer ${localStorage.getItem("token")}`
+                }
+            });
             console.log(data)
         } catch (error) {
             console.log(error)
@@ -103,7 +98,7 @@ const CreateRecipe = () => {
                 </div>
                 <div className="add-ingredient">
                     <label htmlFor="Ingredients">Add ingredient</label>
-                    <div  className="add-ingredient-input">
+                    <div className="add-ingredient-input">
                         <input
                             value={ingredient}
                             onChange={e => setIngredient(e.target.value)}

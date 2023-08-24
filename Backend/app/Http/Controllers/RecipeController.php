@@ -18,20 +18,26 @@ class RecipeController extends Controller
 
         $user = Auth::user();
 
+        $request->validate([
+            'image' => 'required|string',
+            'name' => 'required|string',
+            'cuisine' => 'required|string'
+        ]);
+
         $base64Image = $request->image;
         $decodedImage = base64_decode($base64Image);
 
         $filename = 'post_' . time() . '.jpg';
-        $path = Storage::disk('public')->put('images/' . $filename, $decodedImage);
+        $path = Storage::disk('public')->put('post_images/' . $filename, $decodedImage);
 
         $recipe = Recipe::create([
-            "name" => $request->name,
-            "cuisine" => $request->cuisine,
-            "user_id" => $user->id,
-            "images" => 'images/' . $filename
+            'user_id' => $user->id,
+            'name' => $request->name,
+            'cuisine' => $request->cuisine,
+            'images' => 'post_images/' . $filename
         ]);
 
-        $imageUrl = Storage::url('images/' . $filename);
+        $imageUrl = Storage::url('post_images/' . $filename);
 
         $ingredients = $request->ingredients;
 

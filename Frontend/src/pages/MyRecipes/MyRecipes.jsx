@@ -15,7 +15,7 @@ const MyRecipes = () => {
                 }
             });
             console.log(data)
-            setUserRecipes(data.recipes)
+            setUserRecipes(data.recipes.reverse())
         }
         getRecipes()
     }, [])
