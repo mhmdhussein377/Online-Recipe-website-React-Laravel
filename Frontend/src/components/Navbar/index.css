@@ -28,3 +28,19 @@
 .navbar .logout .icon > * {
     cursor: pointer;
 }
+
+.navbar .icon {
+    cursor: pointer;
+}
+
+.navbar .icon.active {
+    color: red;
+}
+
+.navbar .icon.active-home {
+    color: red;
+}
+
+.navbar a {
+    color: unset;
+}

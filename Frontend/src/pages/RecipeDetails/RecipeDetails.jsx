@@ -4,6 +4,7 @@ import {useParams} from "react-router-dom";
 import axios from "axios";
 import Comment from "../../components/Comment/Comment";
 import CommentForm from "../../components/CommentForm/CommentForm";
+import ShareButtons from "../../components/ShareButtons/ShareButtons";
 
 const RecipeDetails = () => {
 
@@ -95,7 +96,8 @@ const RecipeDetails = () => {
                 <div className="bottom-right">
                     <button onClick={handleAddToShoppingList}>{inShoppingList ? "Remove from shopping list" : "Add to shopping list"}</button>
                     <button>Add to calendar</button>
-                    <button>Share on social media</button>
+                    <ShareButtons name={recipe?.name} />
+                    {/* <button>Share on social media</button> */}
                 </div>
             </div>
         </div>

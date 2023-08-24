@@ -1,5 +1,4 @@
 import "./index.css"
-import Recipe from "./../../components/Recipe/Recipe"
 import {useEffect, useState} from "react"
 import axios from "axios"
 import LikedRecipe from "../../components/LikedRecipe/LikedRecipe"

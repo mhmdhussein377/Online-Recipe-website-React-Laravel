@@ -1,7 +1,7 @@
 import {AiFillHeart, AiOutlineHeart} from "react-icons/ai";
 import "./index.css";
-import {useState} from "react";
 import axios from "axios";
+import {Link} from "react-router-dom";
 
 const LikedRecipe = ({id, name, cuisine, likes_count_count, setLikedRecipes}) => {
 
@@ -26,11 +26,13 @@ const LikedRecipe = ({id, name, cuisine, likes_count_count, setLikedRecipes}) =>
                 <div className="name-likes">
                     <div className="name">{name}</div>
                     <div className="likes">
-                        <AiFillHeart className="heart-icon" onClick={handleLike} size={25}/> {likes_count_count}
+                        <AiFillHeart className="heart-icon" onClick={handleLike} size={25}/>{" "} {likes_count_count}
                     </div>
                 </div>
                 <div className="cuisine">{cuisine}</div>
-                <button className="view-details">View Details</button>
+                <Link to={`/home/recipe/${id}`}>
+                    <button className="view-details">View Details</button>
+                </Link>
             </div>
         </div>
     );

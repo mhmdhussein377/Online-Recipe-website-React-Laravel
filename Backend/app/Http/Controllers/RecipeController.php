@@ -241,9 +241,16 @@ class RecipeController extends Controller
 
     function searchRecipes($searchTerm) {
 
+        $user = Auth::user();
+
         $recipes = Recipe::where("name", "like", "%" . $searchTerm . "%")->orWhere("cuisine", "like", "%" . $searchTerm . "%")->orWhereHas("ingredients", function ($query) use ($searchTerm) {
             $query->where('name', "like", "%" . $searchTerm . "%");
-        })->with('ingredients')->get();
+        })->withCount('likesCount')->get();
+
+        foreach ($recipes as $recipe) {
+                $isLiked = $recipe->likes->where("user_id", $user->id)->count() > 0 ? true : false;
+                $recipe->isLiked = $isLiked;
+            }
 
         return response()->json([
             "status" => "success",

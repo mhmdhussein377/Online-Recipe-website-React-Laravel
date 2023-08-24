@@ -2,19 +2,15 @@ import {AiFillHeart, AiOutlineHeart} from "react-icons/ai";
 import "./index.css"
 import {useState} from "react";
 import axios from "axios"
+import {Link} from "react-router-dom";
 
-const Recipe = ({
-    id,
-    name,
-    cuisine,
-    isLiked,
-    likes_count_count,
-}) => {
+const Recipe = ({id, name, cuisine, isLiked, likes_count_count}) => {
 
     let [liked,
         setLiked] = useState(isLiked)
     let [likesNumber,
         setLikesNumber] = useState(likes_count_count)
+    const url = location.href.split("/").includes("my-recipes")
 
     const handleLike = async() => {
 
@@ -28,7 +24,6 @@ const Recipe = ({
                 'Authorization': `Bearer ${localStorage.getItem("token")}`
             }
         })
-
     }
 
     return (
@@ -49,7 +44,9 @@ const Recipe = ({
                     </div>
                 </div>
                 <div className="cuisine">{cuisine}</div>
-                <button className="view-details">View Details</button>
+                <Link to={`${url ? `/home/recipe/${id}` : `/home/recipe/${id}`}`}>
+                    <button className="view-details">View Details</button>
+                </Link>
             </div>
         </div>
     );

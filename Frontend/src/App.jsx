@@ -18,13 +18,11 @@ function App() {
             <Route path="/home" element={< Layout />}>
                 <Route index element={< Home />}/>
                 <Route path="/home/recipe/:id" element={< RecipeDetails />}/>
-                <Route path="/home/liked-recipes" element={< LikedRecipes />}>
-                    <Route path="/home/liked-recipes/:id" element={< RecipeDetails />}/>
-                </Route>
                 <Route path="/home/my-recipes" element={< MyRecipes />}/>
-                <Route path="/home/my-recipes/:id" element={< RecipeDetails />}/>
                 <Route path="/home/create-recipe" element={< CreateRecipe />}/>
                 <Route path="/home/shopping-list" element={< ShoppingList />}/>
+                <Route path="/home/liked-recipes" element={< LikedRecipes />} />
+                    {/* <Route path="/home/liked-recipes/:id" element={< RecipeDetails />}/> */}
             </Route>
         </Routes>
     );

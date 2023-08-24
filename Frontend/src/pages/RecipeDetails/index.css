@@ -150,3 +150,17 @@
     -ms-border-radius: 5px;
     -o-border-radius: 5px;
 }
+
+@media (max-width: 1000px) {
+    
+    .recipe-details .bottom {
+        flex-direction: column-reverse;
+    }
+}
+
+@media (max-width: 900px) {
+    
+    .recipe-details .top {
+        flex-direction: column;
+    }
+}

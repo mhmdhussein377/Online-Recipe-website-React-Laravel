@@ -1,0 +1,12 @@
+.share-buttons {
+    display: flex !important;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.share-buttons .share-button {
+    background-color: red !important;
+    width: 100%;
+    padding: 8px !important;
+    font-size: 1.125rem !important;
+}

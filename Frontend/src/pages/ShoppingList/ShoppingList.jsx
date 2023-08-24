@@ -21,7 +21,7 @@ const ShoppingList = () => {
     }, [])
 
     return (
-        <div className="liked-recipes">
+        <div className="shopping-list-recipes">
             <h1>Welcome to Recipes</h1>
             <h2>Shopping List</h2>
             <div className="recipes">

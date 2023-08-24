@@ -38,4 +38,35 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 1.875rem;
+    margin: auto;
+}
+
+@media (max-width: 1300px) {
+    
+    .home .recipes {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 1000px) {
+    
+    .home .recipes {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 770px) {
+    
+    .home .recipes {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+@media (max-width: 700px) {
+    
+    .home .top {
+        flex-direction: column;
+        align-items: start;
+        gap: .625rem;
+    }
 }
