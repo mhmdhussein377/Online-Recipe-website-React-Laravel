@@ -1,5 +1,5 @@
 .navbar {
-    background-color: blue;
+    background-color: var(--white-color);
     width: 80px;
     height: 100%;
     position: fixed;
@@ -13,6 +13,7 @@
 
 .navbar .logo {
     margin-bottom: 40px;
+    color: var(--main-color);
 }
 
 .navbar .mid-icons {
@@ -34,11 +35,11 @@
 }
 
 .navbar .icon.active {
-    color: red;
+    color: var(--main-color);
 }
 
 .navbar .icon.active-home {
-    color: red;
+    color: var(--main-color);
 }
 
 .navbar a {

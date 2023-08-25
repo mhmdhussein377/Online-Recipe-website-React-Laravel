@@ -4,13 +4,23 @@ import {useState} from "react";
 import axios from "axios"
 import {Link} from "react-router-dom";
 
-const Recipe = ({id, name, cuisine, isLiked, likes_count_count}) => {
+const Recipe = ({
+    id,
+    name,
+    cuisine,
+    isLiked,
+    likes_count_count,
+    images
+}) => {
 
     let [liked,
         setLiked] = useState(isLiked)
     let [likesNumber,
         setLikesNumber] = useState(likes_count_count)
-    const url = location.href.split("/").includes("my-recipes")
+    const url = location
+        .href
+        .split("/")
+        .includes("my-recipes")
 
     const handleLike = async() => {
 
@@ -29,9 +39,7 @@ const Recipe = ({id, name, cuisine, isLiked, likes_count_count}) => {
     return (
         <div className="recipe">
             <div className="recipe-img">
-                <img
-                    src="https://img.freepik.com/premium-photo/ice-cream-gourmet-foood_118342-59081.jpg?size=626&ext=jpg&ga=GA1.1.356022348.1691570131&semt=sph"
-                    alt="recipe"/>
+                <img src={`http://127.0.0.1:8000/storage/${images}`} alt="recipe"/>
             </div>
             <div className="bottom-recipe">
                 <div className="name-likes">
@@ -44,7 +52,10 @@ const Recipe = ({id, name, cuisine, isLiked, likes_count_count}) => {
                     </div>
                 </div>
                 <div className="cuisine">{cuisine}</div>
-                <Link to={`${url ? `/home/recipe/${id}` : `/home/recipe/${id}`}`}>
+                <Link
+                    to={`${url
+                    ? `/home/recipe/${id}`
+                    : `/home/recipe/${id}`}`}>
                     <button className="view-details">View Details</button>
                 </Link>
             </div>

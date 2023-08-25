@@ -3,7 +3,14 @@ import "./index.css";
 import axios from "axios";
 import {Link} from "react-router-dom";
 
-const LikedRecipe = ({id, name, cuisine, likes_count_count, setLikedRecipes}) => {
+const LikedRecipe = ({
+    id,
+    name,
+    cuisine,
+    likes_count_count,
+    setLikedRecipes,
+    images
+}) => {
 
     const handleLike = async() => {
         setLikedRecipes(prev => prev.filter(item => item.id !== id))
@@ -18,9 +25,7 @@ const LikedRecipe = ({id, name, cuisine, likes_count_count, setLikedRecipes}) =>
     return (
         <div className="recipe">
             <div className="recipe-img">
-                <img
-                    src="https://img.freepik.com/premium-photo/ice-cream-gourmet-foood_118342-59081.jpg?size=626&ext=jpg&ga=GA1.1.356022348.1691570131&semt=sph"
-                    alt="recipe"/>
+                <img src={`http://127.0.0.1:8000/storage/${images}`} alt="recipe"/>
             </div>
             <div className="bottom-recipe">
                 <div className="name-likes">

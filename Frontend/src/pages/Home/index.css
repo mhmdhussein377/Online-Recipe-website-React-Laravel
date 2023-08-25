@@ -14,7 +14,8 @@
     width: 300px;
     padding: 8px;
     border-radius: 7px;
-    background-color: red;
+    background-color: var(--black-color);
+    color: var(--white-color);
     -webkit-border-radius: 7px;
     -moz-border-radius: 7px;
     -ms-border-radius: 7px;
@@ -26,7 +27,12 @@
     border: none;
     outline: none;
     background-color: transparent;
+    color: var(--white-color);
     font-size: 1rem;
+}
+
+.home .top .search input::placeholder {
+    color: var(--white-color);
 }
 
 .home h2 {

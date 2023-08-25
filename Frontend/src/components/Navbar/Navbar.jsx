@@ -15,6 +15,8 @@ const Navbar = () => {
         navigate("/")
     }
 
+    console.log(location.href)
+
     return (
         <div className="navbar">
             <div className="logo">
@@ -23,49 +25,49 @@ const Navbar = () => {
             <div className="mid-icons">
                 <Link
                     to="/home"
-                    className="icon">
-                    <AiOutlineHome size={25}/>
+                    className={`icon ${location.href === "http://localhost:5173/home" && "active"}`}>
+                    <AiOutlineHome size={30}/>
                 </Link>
                 <NavLink
                     exact
-                    className={({isActive}) => isActive
+                    className={({isActive}) => (isActive
                     ? "icon active"
-                    : "icon"}
+                    : "icon")}
                     to="/home/create-recipe">
-                    <AiOutlinePlusCircle size={25}/>
+                    <AiOutlinePlusCircle size={30}/>
                 </NavLink>
                 <NavLink
-                    className={({isActive}) => isActive
+                    className={({isActive}) => (isActive
                     ? "icon active"
-                    : "icon"}
+                    : "icon")}
                     to="/home/my-recipes">
-                    <PiWallet size={25}/>
+                    <PiWallet size={30}/>
                 </NavLink>
                 <NavLink
-                    className={({isActive}) => isActive
+                    className={({isActive}) => (isActive
                     ? "icon active"
-                    : "icon"}
+                    : "icon")}
                     to="/home/liked-recipes">
-                    <AiOutlineHeart size={25}/>
+                    <AiOutlineHeart size={30}/>
                 </NavLink>
                 <NavLink
-                    className={({isActive}) => isActive
+                    className={({isActive}) => (isActive
                     ? "icon active"
-                    : "icon"}
+                    : "icon")}
                     to="/home/shopping-list">
-                    <BsCardList size={25}/>
+                    <BsCardList size={30}/>
                 </NavLink>
                 <NavLink
                     to="/calendar"
-                    className={({isActive}) => isActive
+                    className={({isActive}) => (isActive
                     ? "icon active"
-                    : "icon"}>
-                    <BsCalendarEvent size={25}/>
+                    : "icon")}>
+                    <BsCalendarEvent size={30}/>
                 </NavLink>
             </div>
             <div className="logout">
                 <div className="icon">
-                    <IoIosLogOut onClick={handleLogout} size={25}/>
+                    <IoIosLogOut onClick={handleLogout} size={30}/>
                 </div>
             </div>
         </div>

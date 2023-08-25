@@ -44,8 +44,6 @@ const RecipeDetails = () => {
         }
     }
 
-    console.log(recipe)
-
     return (
         <div className="recipe-details">
             <div className="top">

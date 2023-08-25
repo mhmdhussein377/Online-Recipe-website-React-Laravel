@@ -3,6 +3,7 @@ import "./index.css"
 import {AiOutlinePlus} from "react-icons/ai"
 import Ingredient from "../Ingredient/Ingredient"
 import axios from "axios"
+import { useNavigate } from "react-router-dom"
 
 const CreateRecipe = () => {
 
@@ -16,7 +17,9 @@ const CreateRecipe = () => {
         setIngredient] = useState("")
     let [base64,
         setBase64] = useState("")
+    let [photoError, setPhotoError] = useState(false)
     const photoRef = useRef()
+    const navigate = useNavigate()
 
     const handleAddIngredient = (e) => {
         e.preventDefault()
@@ -53,6 +56,13 @@ const CreateRecipe = () => {
     const handleCreateRecipe = async(e) => {
         e.preventDefault()
 
+        if(!base64) {
+            setPhotoError(true)
+            setTimeout(() => {
+                setPhotoError(false)
+            }, 3000)
+        }
+
         try {
             const newBase64 = base64.split(",")[1];
             let {data} = await axios.post("http://127.0.0.1:8000/api/create-recipe", {
@@ -65,7 +75,7 @@ const CreateRecipe = () => {
                     Authorization: `Bearer ${localStorage.getItem("token")}`
                 }
             });
-            console.log(data)
+            navigate('/home/my-recipes')
         } catch (error) {
             console.log(error)
         }
@@ -121,6 +131,7 @@ const CreateRecipe = () => {
                     .current
                     .click()}
                     className="add-photo">Add photo</div>
+                {photoError && <p className="photo-error">A photo is required</p>}
                 <input
                     onChange={handleFileInput}
                     ref={photoRef}

@@ -7,6 +7,7 @@ const Login = () => {
 
     let [body,
         setBody] = useState({})
+    let [validationError, setValidationError] = useState(false)
     const navigate = useNavigate()
 
     const handleChange = (e) => {
@@ -23,7 +24,15 @@ const Login = () => {
             let { data } = await axios.post("http://127.0.0.1:8000/api/login", body);
             localStorage.setItem("token", data.authorisation.token)
             navigate("/home")
+            console.log("dataaa")
+            console.log(data)
         } catch (error) {
+            console.log("errrror")
+            setValidationError(true)
+            setTimeout(() => {
+                setValidationError(false)
+            }, 3000)
+            console.log(validationError)
             console.log(error)
         }
     }
@@ -47,11 +56,13 @@ const Login = () => {
                         <label htmlFor="password">Password</label>
                         <input
                             onChange={(e) => handleChange(e)}
+                            required
                             name="password"
                             id="password"
                             type="password"
                             placeholder="Enter password"/>
                     </div>
+                    {validationError && <p style={{color: 'var(--main-color)'}}>Wrong Credentials</p>}
                     <div className="to-register">
                         Don't have an account?
                         <Link to="/register">Sign up</Link>

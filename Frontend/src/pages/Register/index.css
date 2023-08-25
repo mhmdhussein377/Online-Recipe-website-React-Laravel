@@ -5,10 +5,11 @@
     justify-content: center;
     padding: 20px;
     background-color: #e5e5e5;
+    background-color: var(--main-color);
 }
 
 .register .box {
-    background-color: white;
+    background-color: var(--white-color);
     padding: 20px;
     border-radius: 20px;
     -webkit-border-radius: 20px;
@@ -41,10 +42,12 @@
 }
 
 .register .box .inputs .input input {
-    padding: 10px;
+    padding: 14px;
     border: none;
     outline: none;
     background-color: #e9e8e8;
+    background-color: var(--black-color);
+    color: var(--white-color);
     font-size: 1rem;
     border-radius: 5px;
     -webkit-border-radius: 5px;
@@ -53,18 +56,25 @@
     -o-border-radius: 5px;
 }
 
+.register .box .inputs .input input::placeholder {
+    color: var(--white-color);
+}
+
 .register .box .to-login {
     font-size: .875rem;
+    display: flex;
+    align-items: center;
+    gap: .625rem;
 }
 
 .register .box .to-login a {
     font-size: 1rem;
-    color: unset;
+    color: var(--main-color);
 }
 
 .register .box button {
     width: 100%;
-    padding: 10px;
+    padding: 14px;
     margin-top: 15px;
     border: none;
     font-size: 1rem;
@@ -73,4 +83,6 @@
     -moz-border-radius: 5px;
     -ms-border-radius: 5px;
     -o-border-radius: 5px;
+    background-color: var(--black-color);
+    color: var(--white-color);
 }

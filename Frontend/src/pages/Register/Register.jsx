@@ -6,6 +6,7 @@ import axios from "axios"
 const Register = () => {
 
     let [body, setBody] = useState({})
+    let [error, setError] = useState(false)
     const navigate = useNavigate()
 
     const handleChange = (e) => {
@@ -23,6 +24,10 @@ const Register = () => {
             localStorage.setItem("token", data.authorisation.token)
             navigate("/home")
         } catch (error) {
+            setError(true)
+            setTimeout(() => {
+                setError(false)
+            }, 3000)
             console.log(error)
         }
     }
@@ -35,15 +40,16 @@ const Register = () => {
                 <div className="inputs">
                     <div className="input">
                         <label htmlFor="name">Full name</label>
-                        <input onChange={e => handleChange(e)} name="name" id="name" type="text" placeholder="Enter your full name"/>
+                        <input onChange={e => handleChange(e)} name="name" id="name" type="text" placeholder="Enter your full name" required/>
                     </div>
                     <div className="input">
                         <label htmlFor="email">Email</label>
-                        <input onChange={e => handleChange(e)} name="email" id="email" type="email" placeholder="Enter your email"/>
+                        <input onChange={e => handleChange(e)} name="email" id="email" type="email" placeholder="Enter your email" required/>
+                        {error && <p style={{color: 'var(--main-color)'}}>Email has already been taken</p>}
                     </div>
                     <div className="input">
                         <label htmlFor="password">Password</label>
-                        <input onChange={e => handleChange(e)} name="password" id="password" type="password" placeholder="Enter password"/>
+                        <input onChange={e => handleChange(e)} name="password" id="password" type="password" placeholder="Enter password" required minLength={6}/>
                     </div>
                     <div className="to-login">
                         Already have an account? <Link to="/">Sign in</Link>

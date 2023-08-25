@@ -5,7 +5,8 @@
 }
 
 .share-buttons .share-button {
-    background-color: red !important;
+    background-color: var(--black-color) !important;
+    color: var(--white-color) !important;
     width: 100%;
     padding: 8px !important;
     font-size: 1.125rem !important;

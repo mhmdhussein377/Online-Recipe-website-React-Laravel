@@ -1,5 +1,5 @@
 .comment-form {
-    background-color: green;
+    background-color: var(--main-color);
     width: 60%;
     padding: .625rem;
     border-radius: 5px;
@@ -17,12 +17,13 @@
     border: none;
     font-size: 1rem;
     background-color: transparent;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid var(--white-color);
     color: black;
+    color: var(--white-color);
 }
 
 .comment-form input::placeholder {
-    color: black;
+    color: var(--white-color);
 }
 
 .comment-form .close {
@@ -34,7 +35,7 @@
     justify-content: center;
     top: -15px;
     right: -15px;
-    background-color: black;
+    background-color: var(--black-color);
     color: white;
     border-radius: 50%;
     -webkit-border-radius: 50%;
