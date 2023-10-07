@@ -1,6 +1,6 @@
 <img src="./readme/title1.svg"/>
 
-<img src="./readme/table-of-contents.svg"/>
+<img src="./readme/table-of-contents.png"/>
 
 - [Project Philosophy](#project-description)
   - [User stories](#user-stories)
@@ -26,7 +26,7 @@
 
 <!-- Demo -->
 <a name="demo"></a>
-<img src="./readme/demo.svg"/>
+<img src="./readme/demo.png"/>
 
 | Signup  | Login | Browse Recipes |
 | ---| ---| ---|
