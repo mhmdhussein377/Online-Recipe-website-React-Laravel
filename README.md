@@ -16,11 +16,17 @@
 <a name="project-description"></a>
 <img src="./readme/title2.svg"/>
 
-
+> RecipeHub is a place where food lovers can find and share recipes, connect with others who enjoy cooking, and plan meals. Whether you're searching for new dishes, sharing your own recipes, or organizing your weekly meals, RecipeHub is here for you. It's a user-friendly platform to explore, create, and savor delicious recipes.
 
 <a name="user-stories"></a>
 ### User Stories
-
+- As a user, I want to sign up and log in so that I can access my account.
+- As a user, I want to share recipes so that I can contribute my favorite dishes to the community.
+- As a user, I want to discover recipes by searching so that I can find new and exciting meal ideas.
+- As a user, I want to like recipes so that I can show my appreciation for dishes I enjoy.
+- As a user, I want to comment on recipes so that I can share my thoughts and ideas with other users.
+- As a user, I want to share recipes on social media so that I can inspire others to try new recipes.
+- As a user, I want to create shopping lists so that I can easily manage my grocery shopping for planned meals.
 
 <br><br>
 
@@ -42,9 +48,10 @@
 <a name="tech-stack"></a>
 <img src="./readme/title5.svg"/>
 
-###  Online Recipes is built using the following technologies:
-
-
+###  RecipeHub is built using the following technologies:
+- React: The frontend is developed with React, providing an intuitive and user-friendly interface.
+- Laravel: The backend is powered by Laravel, a PHP web application framework, handling user authentication, recipe management, and interactions.
+- MySQL: MySQL serves as the relational database to store user information, recipe data, comments, and more.
 
 <br><br>
 
