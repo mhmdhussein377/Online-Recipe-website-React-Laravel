@@ -3,7 +3,7 @@ import "./index.css"
 import {Link, useNavigate} from "react-router-dom";
 import axios from "axios"
 import Input from "../../components/UI/Input";
-import { inputFields } from "../../utils/data";
+import { LoginInputFields, handleInputsChange } from "../../utils/data";
 
 const Login = () => {
 
@@ -14,10 +14,7 @@ const Login = () => {
     const navigate = useNavigate()
 
     const handleChange = (e) => {
-        setBody({
-            ...body,
-            [e.target.name]: e.target.value
-        })
+        handleInputsChange(e, setBody)
     }
 
     const handleSubmit = async(e) => {
@@ -41,7 +38,7 @@ const Login = () => {
                 <div>Sign in</div>
                 <h2>Login to your account</h2>
                 <div className="inputs">
-                    {inputFields.map(({label, name, type, placeholder}, index) => (
+                    {LoginInputFields.map(({label, name, type, placeholder}, index) => (
                     <Input
                         key={index}
                         label={label}
