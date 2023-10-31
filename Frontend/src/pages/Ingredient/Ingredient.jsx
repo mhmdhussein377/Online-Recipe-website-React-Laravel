@@ -2,9 +2,6 @@ import {IoIosClose} from "react-icons/io";
 
 const Ingredient = ({name, setIngredients, id}) => {
 
-    console.log(id)
-    console.log("key")
-
     const handleRemoveIngredient = () => {
         setIngredients(prev => prev.filter((item, index) => index !== id ))
     }

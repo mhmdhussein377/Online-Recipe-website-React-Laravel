@@ -7,17 +7,17 @@ import { useNavigate } from "react-router-dom"
 
 const CreateRecipe = () => {
 
-    let [ingredients,
+    const [ingredients,
         setIngredients] = useState([])
-    let [name,
+    const [name,
         setName] = useState("")
-    let [cuisine,
+    const [cuisine,
         setCuisine] = useState("")
-    let [ingredient,
+    const [ingredient,
         setIngredient] = useState("")
-    let [base64,
+    const [base64,
         setBase64] = useState("")
-    let [photoError, setPhotoError] = useState(false)
+    const [photoError, setPhotoError] = useState(false)
     const photoRef = useRef()
     const navigate = useNavigate()
 
@@ -50,7 +50,6 @@ const CreateRecipe = () => {
             };
             reader.readAsDataURL(e.target.files[0]);
         }
-        console.log(base64)
     }
 
     const handleCreateRecipe = async(e) => {
@@ -65,7 +64,7 @@ const CreateRecipe = () => {
 
         try {
             const newBase64 = base64.split(",")[1];
-            let {data} = await axios.post("http://127.0.0.1:8000/api/create-recipe", {
+            await axios.post("http://127.0.0.1:8000/api/create-recipe", {
                 name,
                 cuisine,
                 image: newBase64,
@@ -127,9 +126,7 @@ const CreateRecipe = () => {
                     </div>
                 </div>
                 <div
-                    onClick={e => photoRef
-                    .current
-                    .click()}
+                    onClick={e => photoRef.current.click()}
                     className="add-photo">Add photo</div>
                 {photoError && <p className="photo-error">A photo is required</p>}
                 <input

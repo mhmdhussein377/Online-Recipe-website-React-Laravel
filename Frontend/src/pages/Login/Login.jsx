@@ -1,13 +1,16 @@
 import {useState} from "react";
 import "./index.css"
-import { Link, useNavigate } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import axios from "axios"
+import Input from "../../components/UI/Input";
+import { inputFields } from "../../utils/data";
 
 const Login = () => {
 
-    let [body,
+    const [body,
         setBody] = useState({})
-    let [validationError, setValidationError] = useState(false)
+    const [validationError,
+        setValidationError] = useState(false)
     const navigate = useNavigate()
 
     const handleChange = (e) => {
@@ -21,19 +24,14 @@ const Login = () => {
         e.preventDefault();
 
         try {
-            let { data } = await axios.post("http://127.0.0.1:8000/api/login", body);
+            let {data} = await axios.post("/login", body);
             localStorage.setItem("token", data.authorisation.token)
             navigate("/home")
-            console.log("dataaa")
-            console.log(data)
         } catch (error) {
-            console.log("errrror")
             setValidationError(true)
             setTimeout(() => {
                 setValidationError(false)
             }, 3000)
-            console.log(validationError)
-            console.log(error)
         }
     }
 
@@ -43,26 +41,20 @@ const Login = () => {
                 <div>Sign in</div>
                 <h2>Login to your account</h2>
                 <div className="inputs">
-                    <div className="input">
-                        <label htmlFor="email">Email</label>
-                        <input
-                            onChange={(e) => handleChange(e)}
-                            name="email"
-                            id="email"
-                            type="email"
-                            placeholder="Enter your email"/>
-                    </div>
-                    <div className="input">
-                        <label htmlFor="password">Password</label>
-                        <input
-                            onChange={(e) => handleChange(e)}
-                            required
-                            name="password"
-                            id="password"
-                            type="password"
-                            placeholder="Enter password"/>
-                    </div>
-                    {validationError && <p style={{color: 'var(--main-color)'}}>Wrong Credentials</p>}
+                    {inputFields.map(({label, name, type, placeholder}, index) => (
+                    <Input
+                        key={index}
+                        label={label}
+                        name={name}
+                        type={type}
+                        placeholder={placeholder}
+                        value={body[name] || ''}
+                        onChange={handleChange}/>
+                        ))}
+                    {validationError && <p
+                        style={{
+                        color: 'var(--main-color)'
+                    }}>Wrong Credentials</p>}
                     <div className="to-register">
                         Don't have an account?
                         <Link to="/register">Sign up</Link>
