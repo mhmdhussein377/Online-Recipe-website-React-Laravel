@@ -3,7 +3,9 @@ import "./index.css"
 import {AiOutlinePlus} from "react-icons/ai"
 import Ingredient from "../Ingredient/Ingredient"
 import axios from "axios"
-import { useNavigate } from "react-router-dom"
+import {useNavigate} from "react-router-dom"
+import Input from "../../components/UI/Input"
+import { createRecipeInputFields } from "../../utils/data"
 
 const CreateRecipe = () => {
 
@@ -17,7 +19,8 @@ const CreateRecipe = () => {
         setIngredient] = useState("")
     const [base64,
         setBase64] = useState("")
-    const [photoError, setPhotoError] = useState(false)
+    const [photoError,
+        setPhotoError] = useState(false)
     const photoRef = useRef()
     const navigate = useNavigate()
 
@@ -55,7 +58,7 @@ const CreateRecipe = () => {
     const handleCreateRecipe = async(e) => {
         e.preventDefault()
 
-        if(!base64) {
+        if (!base64) {
             setPhotoError(true)
             setTimeout(() => {
                 setPhotoError(false)
@@ -64,7 +67,7 @@ const CreateRecipe = () => {
 
         try {
             const newBase64 = base64.split(",")[1];
-            await axios.post("http://127.0.0.1:8000/api/create-recipe", {
+            await axios.post("/create-recipe", {
                 name,
                 cuisine,
                 image: newBase64,
@@ -85,26 +88,18 @@ const CreateRecipe = () => {
             <h1>Welcome to Recipes</h1>
             <h2>Create Recipe</h2>
             <form onSubmit={handleCreateRecipe} className="create-recipe-box">
-                <div className="input">
-                    <label htmlFor="recipe-name">Recipe name</label>
-                    <input
-                        required
-                        value={name}
-                        onChange={e => setName(e.target.value)}
-                        type="text"
-                        id="recipe-name"
-                        placeholder="Recipe name"/>
-                </div>
-                <div className="input">
-                    <label htmlFor="recipe-cuisine">Recipe cuisine</label>
-                    <input
-                        required
-                        value={cuisine}
-                        onChange={e => setCuisine(e.target.value)}
-                        type="text"
-                        id="recipe-cuisine"
-                        placeholder="Recipe cuisine"/>
-                </div>
+                {createRecipeInputFields.map(({label, name, type, placeholder}, index) => (<Input
+                    key={index}
+                    label={label}
+                    name={name}
+                    type={type}
+                    placeholder={placeholder}
+                    value={name === "name"
+                    ? name
+                    : cuisine}
+                    onChange={(e) => name === "name"
+                    ? setName(e.target.value)
+                    : setCuisine(e.target.value)}/>))}
                 <div className="add-ingredient">
                     <label htmlFor="Ingredients">Add ingredient</label>
                     <div className="add-ingredient-input">
@@ -126,7 +121,9 @@ const CreateRecipe = () => {
                     </div>
                 </div>
                 <div
-                    onClick={e => photoRef.current.click()}
+                    onClick={e => photoRef
+                    .current
+                    .click()}
                     className="add-photo">Add photo</div>
                 {photoError && <p className="photo-error">A photo is required</p>}
                 <input

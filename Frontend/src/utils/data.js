@@ -38,3 +38,17 @@ export const registerInputFields = [
         minLength: 6
     }
 ];
+
+export const createRecipeInputFields = [
+    {
+        label: "Recipe name",
+        name: "name",
+        type: "text",
+        placeholder: "Recipe name"
+    }, {
+        label: "Recipe cuisine",
+        name: "cuisine",
+        type: "text",
+        placeholder: "Recipe cuisine"
+    }
+];

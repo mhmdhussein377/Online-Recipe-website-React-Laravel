@@ -25,7 +25,6 @@ function App() {
                 <Route path="/home/create-recipe" element={< CreateRecipe />}/>
                 <Route path="/home/shopping-list" element={< ShoppingList />}/>
                 <Route path="/home/liked-recipes" element={< LikedRecipes />} />
-                    {/* <Route path="/home/liked-recipes/:id" element={< RecipeDetails />}/> */}
             </Route>
         </Routes>
     );
