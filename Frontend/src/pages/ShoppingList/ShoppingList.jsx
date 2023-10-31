@@ -5,12 +5,12 @@ import axios from "axios";
 
 const ShoppingList = () => {
 
-    let [shoppinglistRecipes,
+    const [shoppinglistRecipes,
         setShoppingListRecipes] = useState([])
 
     useEffect(() => {
         const getShoppingListRecipes = async() => {
-            let {data} = await axios.get("http://127.0.0.1:8000/api/shopping-list-recipes", {
+            let {data} = await axios.get("/shopping-list-recipes", {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem("token")}`
                 }

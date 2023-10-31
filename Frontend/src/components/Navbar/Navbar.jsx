@@ -1,10 +1,10 @@
-import {AiOutlineHeart, AiOutlineHome, AiOutlinePlusCircle} from "react-icons/ai"
+import {AiOutlineHome} from "react-icons/ai"
 import "./index.css"
 import {TbLetterM} from "react-icons/tb"
-import {PiWallet} from "react-icons/pi"
-import {BsCalendarEvent, BsCardList} from "react-icons/bs"
 import {IoIosLogOut} from "react-icons/io"
-import {Link, NavLink, useNavigate} from "react-router-dom"
+import {Link, useNavigate} from "react-router-dom"
+import {navLinks} from "../../utils/data"
+import NavIcon from "../UI/NavIcon"
 
 const Navbar = () => {
 
@@ -15,7 +15,7 @@ const Navbar = () => {
         navigate("/")
     }
 
-    console.log(location.href)
+    const renderNavLinks = (navLinks) => (navLinks.map((link, index) => (<NavIcon key={index} to={link.to} icon={link.icon} size={link.size}/>)))
 
     return (
         <div className="navbar">
@@ -28,42 +28,7 @@ const Navbar = () => {
                     className={`icon ${location.href === "http://localhost:5173/home" && "active"}`}>
                     <AiOutlineHome size={30}/>
                 </Link>
-                <NavLink
-                    exact
-                    className={({isActive}) => (isActive
-                    ? "icon active"
-                    : "icon")}
-                    to="/home/create-recipe">
-                    <AiOutlinePlusCircle size={30}/>
-                </NavLink>
-                <NavLink
-                    className={({isActive}) => (isActive
-                    ? "icon active"
-                    : "icon")}
-                    to="/home/my-recipes">
-                    <PiWallet size={30}/>
-                </NavLink>
-                <NavLink
-                    className={({isActive}) => (isActive
-                    ? "icon active"
-                    : "icon")}
-                    to="/home/liked-recipes">
-                    <AiOutlineHeart size={30}/>
-                </NavLink>
-                <NavLink
-                    className={({isActive}) => (isActive
-                    ? "icon active"
-                    : "icon")}
-                    to="/home/shopping-list">
-                    <BsCardList size={30}/>
-                </NavLink>
-                <NavLink
-                    to="/calendar"
-                    className={({isActive}) => (isActive
-                    ? "icon active"
-                    : "icon")}>
-                    <BsCalendarEvent size={30}/>
-                </NavLink>
+                {renderNavLinks(navLinks)}
             </div>
             <div className="logout">
                 <div className="icon">

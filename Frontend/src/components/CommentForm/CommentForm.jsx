@@ -3,14 +3,14 @@ import './index.css'
 import axios from 'axios';
 
 const CommentForm = ({setIsCommentOpened, setRecipe, recipeId}) => {
-    let [input,
+    const [input,
         setInput] = useState("");
 
     const handleComment = async(e) => {
         e.preventDefault();
 
         try {
-            let {data} = await axios.post(`http://127.0.0.1:8000/api/create-comment/${recipeId}`, {
+            let {data} = await axios.post(`/create-comment/${recipeId}`, {
                 comment: input
             }, {
                 headers: {

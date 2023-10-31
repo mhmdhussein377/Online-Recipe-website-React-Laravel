@@ -5,16 +5,15 @@ import axios from "axios";
 
 const MyRecipes = () => {
 
-    let [userRecipes, setUserRecipes] = useState([])
+    const [userRecipes, setUserRecipes] = useState([])
 
     useEffect(() => {
         const getRecipes = async() => {
-            let { data } = await axios.get("http://127.0.0.1:8000/api/my-recipes", {
+            let { data } = await axios.get("/my-recipes", {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem("token")}`
                 }
             });
-            console.log(data)
             setUserRecipes(data.recipes.reverse())
         }
         getRecipes()

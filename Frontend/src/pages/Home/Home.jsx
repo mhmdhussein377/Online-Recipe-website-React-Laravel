@@ -6,13 +6,13 @@ import axios from "axios"
 
 const Home = () => {
 
-    let [recipes,
+    const [recipes,
         setRecipes] = useState([])
-    let [searchTerm,
+    const [searchTerm,
         setSearchTerm] = useState("")
 
     const getRecipes = async() => {
-        let {data} = await axios.get("http://127.0.0.1:8000/api/recipes", {
+        let {data} = await axios.get("/recipes", {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("token")}`
             }
@@ -39,7 +39,7 @@ const Home = () => {
         e.preventDefault()
 
         try {
-            let {data} = await axios.get(`http://127.0.0.1:8000/api/search/${searchTerm}`, {
+            let {data} = await axios.get(`/search/${searchTerm}`, {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem("token")}`
                 }

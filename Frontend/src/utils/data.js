@@ -1,3 +1,8 @@
+import {PiWallet} from "react-icons/pi"
+import {BsCalendarEvent, BsCardList} from "react-icons/bs"
+import {AiOutlineHeart, AiOutlinePlusCircle} from "react-icons/ai"
+
+
 export const LoginInputFields = [
     {
         label: 'Email',
@@ -50,5 +55,29 @@ export const createRecipeInputFields = [
         name: "cuisine",
         type: "text",
         placeholder: "Recipe cuisine"
+    }
+];
+
+export const navLinks = [
+    {
+        to: '/home/create-recipe',
+        icon: AiOutlinePlusCircle,
+        size: 30
+    }, {
+        to: '/home/my-recipes',
+        icon: PiWallet,
+        size: 30
+    }, {
+        to: '/home/liked-recipes',
+        icon: AiOutlineHeart,
+        size: 30
+    }, {
+        to: '/home/shopping-list',
+        icon: BsCardList,
+        size: 30
+    }, {
+        to: '/calendar',
+        icon: BsCalendarEvent,
+        size: 30
     }
 ];

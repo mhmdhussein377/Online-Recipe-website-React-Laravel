@@ -8,18 +8,18 @@ import ShareButtons from "../../components/ShareButtons/ShareButtons";
 
 const RecipeDetails = () => {
 
-    let [isCommentOpened,
+    const [isCommentOpened,
         setIsCommentOpened] = useState(false)
-    let [recipe,
+    const [recipe,
         setRecipe] = useState(null)
-    let [inShoppingList,
+    const [inShoppingList,
         setInShoppingList] = useState(false)
 
     const {id} = useParams()
 
     useEffect(() => {
         const getRecipe = async() => {
-            let {data} = await axios.get(`http://127.0.0.1:8000/api/recipes/${id}`, {
+            let {data} = await axios.get(`/recipes/${id}`, {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
                 }
@@ -34,7 +34,7 @@ const RecipeDetails = () => {
     const handleAddToShoppingList = async() => {
         try {
             setInShoppingList(!inShoppingList)
-            let {data} = await axios.get(`http://127.0.0.1:8000/api/create-shopping-list-recipe/${id}`, {
+            await axios.get(`/create-shopping-list-recipe/${id}`, {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem("token")}`
                 }
@@ -53,23 +53,17 @@ const RecipeDetails = () => {
                 <div className="recipe-content">
                     <div className="recipe-name-user">
                         <h2>
-                            {recipe
-                                ?.name}
-                            - {recipe
-                                ?.cuisine}
+                            {recipe?.name}
+                            - {recipe?.cuisine}
                         </h2>
-                        <p>by {recipe
-                                ?.user.name}</p>
+                        <p>by {recipe?.user.name}</p>
                     </div>
                     <div className="ingredients">
                         <h3>Ingredients</h3>
                         <div className="ingredients-content">
                             <ul>
-                                {recipe
-                                    ?.ingredients
-                                        ?.map((item, index) => (
-                                            <li key={index}>{item.name}</li>
-                                        ))}
+                                {recipe?.ingredients?.map((item, index) => (<li key={index}>{item.name}
+                                </li>))}
                             </ul>
                         </div>
                     </div>
@@ -103,8 +97,7 @@ const RecipeDetails = () => {
                             : "Add to shopping list"}
                     </button>
                     <button>Add to calendar</button>
-                    <ShareButtons name={recipe
-                        ?.name}/> {/* <button>Share on social media</button> */}
+                    <ShareButtons name={recipe?.name}/> {/* <button>Share on social media</button> */}
                 </div>
             </div>
         </div>

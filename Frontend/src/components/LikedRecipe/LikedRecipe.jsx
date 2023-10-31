@@ -1,5 +1,4 @@
-import {AiFillHeart, AiOutlineHeart} from "react-icons/ai";
-import "./index.css";
+import {AiFillHeart} from "react-icons/ai";
 import axios from "axios";
 import {Link} from "react-router-dom";
 
@@ -15,7 +14,7 @@ const LikedRecipe = ({
     const handleLike = async() => {
         setLikedRecipes(prev => prev.filter(item => item.id !== id))
 
-        await axios.get(`http://127.0.0.1:8000/api/like-recipe/${id}`, {
+        await axios.get(`/like-recipe/${id}`, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("token")}`
             }

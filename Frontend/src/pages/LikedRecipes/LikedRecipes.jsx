@@ -5,13 +5,13 @@ import LikedRecipe from "../../components/LikedRecipe/LikedRecipe"
 
 const LikedRecipes = () => {
 
-    let [likedRecipes,
+    const [likedRecipes,
         setLikedRecipes] = useState([])
 
     useEffect(() => {
         try {
             const getRecipes = async() => {
-                let {data} = await axios.get("http://127.0.0.1:8000/api/liked-recipes", {
+                let {data} = await axios.get("/liked-recipes", {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("token")}`
                     }
